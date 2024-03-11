@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:bo="http://bpc/samples/charging" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://bpc/samples/charging">
+    <xsd:include schemaLocation="CreditCardInformation.xsd"/>
+    <xsd:complexType name="ChargingRequest">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="customer" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="creditCardInformation" type="bo:CreditCardInformation"/>
+      <xsd:element minOccurs="0" name="amount" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

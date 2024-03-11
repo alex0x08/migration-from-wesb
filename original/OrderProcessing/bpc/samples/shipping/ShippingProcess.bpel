@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+"This sample program is provided AS IS and may be used, executed, copied and modified without royalty payment by customer (a) for its own instruction and study, (b) in order to develop applications designed to run with an IBM WebSphere product, either for customer's own internal use or for redistribution by customer, as part of such an application, in customer's own products."
+
+Product 5655-FLW,  (C) COPYRIGHT International Business Machines Corp., 2005
+All Rights Reserved * Licensed Materials - Property of IBM
+-->
+<bpws:process xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns="http://bpc/samples/shipping/ShippingProcessArtifacts" xmlns:ns0="http://bpc/samples/shipping" xmlns:ns1="http://bpc/samples/shipping/Shipping" xmlns:ns2="http://bpc/samples/shipping/ShippingInformation" xmlns:wpc="http://www.ibm.com/xmlns/prod/websphere/business-process/6.0.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.ibm.com/xmlns/prod/websphere/business-process/expression-lang/java/6.0.0/" name="ShippingProcess" suppressJoinFailure="yes" targetNamespace="http://bpc/samples/shipping" wpc:autoDelete="no" wpc:autonomy="peer" wpc:displayName="ShippingProcess" wpc:id="1">
+  <wpc:javaGlobals>
+    <wpc:import packages="com.ibm.websphere.bo.BOFactory"/>
+    <wpc:import packages="com.ibm.websphere.sca.ServiceManager"/>
+    <wpc:import packages="commonj.sdo.DataObject"/>
+  </wpc:javaGlobals>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="ShippingProcessArtifacts.wsdl" namespace="http://bpc/samples/shipping/ShippingProcessArtifacts"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../ShippingLibrary/bpc/samples/shipping/PriceRequest.xsd" namespace="http://bpc/samples/shipping"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../ShippingLibrary/bpc/samples/shipping/Shipping.wsdl" namespace="http://bpc/samples/shipping/Shipping"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../ShippingLibrary/bpc/samples/shipping/ShippingInformation.wsdl" namespace="http://bpc/samples/shipping/ShippingInformation"/>
+  <bpws:partnerLinks>
+    <bpws:partnerLink myRole="myRole" name="Shipping" partnerLinkType="ns:PartnerPLT"/>
+    <bpws:partnerLink name="ShippingInformation" partnerLinkType="ns:PartnerPLT1" partnerRole="partnerRole"/>
+  </bpws:partnerLinks>
+  <bpws:variables>
+    <bpws:variable messageType="ns1:calculatePriceRequestMsg" name="PriceRequest" wpc:id="4"/>
+    <bpws:variable messageType="ns1:shipRequestMsg" name="ShippingOrder" wpc:id="6"/>
+    <bpws:variable messageType="ns1:calculatePriceResponseMsg" name="Price" wpc:id="8"/>
+    <bpws:variable messageType="ns2:acknowledgeShipmentRequestMsg" name="ShippingAcknowledgement" wpc:id="14"/>
+    <bpws:variable messageType="ns2:reportShipmentRequestMsg" name="ShippingReport" wpc:id="24"/>
+  </bpws:variables>
+  <bpws:correlationSets>
+    <bpws:correlationSet name="CorrelationSet" properties="ns:reference"/>
+  </bpws:correlationSets>
+  <bpws:flow name="ParallelActivities" wpc:displayName="ParallelActivities" wpc:id="2">
+    <bpws:links>
+      <bpws:link name="Link1" wpc:id="11"/>
+      <bpws:link name="Link2" wpc:id="12"/>
+      <bpws:link name="Link3" wpc:id="15"/>
+      <bpws:link name="Link5" wpc:id="21"/>
+      <bpws:link name="Link4" wpc:id="22"/>
+      <bpws:link name="Link6" wpc:id="23"/>
+      <bpws:link name="Link7" wpc:id="26"/>
+    </bpws:links>
+    <bpws:receive createInstance="yes" name="CalculatePrice" operation="calculatePrice" partnerLink="Shipping" portType="ns1:Shipping" variable="PriceRequest" wpc:displayName="calculatePrice" wpc:id="3">
+      <bpws:sources>
+        <bpws:source linkName="Link1"/>
+      </bpws:sources>
+      <bpws:correlations>
+        <bpws:correlation initiate="join" set="CorrelationSet"/>
+      </bpws:correlations>
+    </bpws:receive>
+    <bpws:receive createInstance="yes" name="Ship" operation="ship" partnerLink="Shipping" portType="ns1:Shipping" variable="ShippingOrder" wpc:displayName="ship" wpc:id="5">
+      <bpws:sources>
+        <bpws:source linkName="Link4"/>
+      </bpws:sources>
+      <bpws:correlations>
+        <bpws:correlation initiate="join" set="CorrelationSet"/>
+      </bpws:correlations>
+    </bpws:receive>
+    <bpws:reply name="PriceInfo" operation="calculatePrice" partnerLink="Shipping" portType="ns1:Shipping" variable="Price" wpc:displayName="priceInfo" wpc:id="7">
+      <bpws:targets>
+        <bpws:target linkName="Link2"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link3"/>
+      </bpws:sources>
+    </bpws:reply>
+    <bpws:invoke name="Calculate" operation="null" partnerLink="null" portType="wpc:null" wpc:displayName="calculate" wpc:id="10">
+      <wpc:script>
+        <wpc:javaCode><![CDATA[double price = 15.0;
+if(PriceRequest != null)
+{
+   DataObject priceRequest = PriceRequest.getDataObject("priceRequest");
+   
+   if(priceRequest != null)
+   {
+      String size = priceRequest.getString("size");
+   
+      if("S".equals(size))price = 2.0;
+      else if("M".equals(size))price = 4.0;
+      else if("L".equals(size))price = 6.0;
+      else if("XL".equals(size))price = 8.0;
+   }
+}
+
+//initialize the Output variable:
+BOFactory factory = (BOFactory)ServiceManager.INSTANCE.locateService("com/ibm/websphere/bo/BOFactory");
+Price = factory.createByType( getVariableType( "Price") );
+
+//assign a value to the Output variable:
+Price.setDouble("price",price); ]]></wpc:javaCode>
+      </wpc:script>
+      <bpws:targets>
+        <bpws:target linkName="Link1"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link2"/>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke inputVariable="ShippingAcknowledgement" name="SendAcknowledgement" operation="acknowledgeShipment" partnerLink="ShippingInformation" portType="ns2:ShippingInformation" wpc:displayName="sendAcknowledgement" wpc:id="13">
+      <bpws:targets>
+        <bpws:target linkName="Link5"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link6"/>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke name="PrepareAcknowledgement" operation="null" partnerLink="null" portType="wpc:null" wpc:displayName="prepareAcknowledgement" wpc:id="18">
+      <wpc:script>
+        <wpc:javaCode><![CDATA[String referenceNo = null;
+if(ShippingOrder != null)
+{
+    DataObject shippingOrder = ShippingOrder.getDataObject("shippingOrder");
+    if(shippingOrder != null)
+    {
+        referenceNo = shippingOrder.getString("referenceNo");
+    }
+}
+
+StringBuffer ack = new StringBuffer(256);
+ack.append("Shipment acknowledged. Reference No.: ");
+ack.append(referenceNo);
+ack.append(", price: ");
+ack.append(Price.getDouble("price"));
+ack.append(".");
+
+//initialize the Output variable:
+BOFactory factory = (BOFactory)ServiceManager.INSTANCE.locateService("com/ibm/websphere/bo/BOFactory");
+ShippingAcknowledgement = factory.createByType( getVariableType( "ShippingAcknowledgement") );
+
+//initialize wrapped DataObject
+DataObject shippingAck = factory.create("http://bpc/samples/shipping","ShippingAcknowledgement");
+shippingAck.setString("referenceNo",referenceNo); 
+shippingAck.setString("message",ack.toString()); 
+
+//set DataObject to Variable
+ShippingAcknowledgement.setDataObject("acknowledgement",shippingAck);]]></wpc:javaCode>
+      </wpc:script>
+      <bpws:targets>
+        <bpws:joinCondition expressionLanguage="http://www.ibm.com/xmlns/prod/websphere/business-process/expression-lang/built-in/6.0.0/">
+          <wpc:all/>
+        </bpws:joinCondition>
+        <bpws:target linkName="Link4"/>
+        <bpws:target linkName="Link3"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link5"/>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke name="PrepareReport" operation="null" partnerLink="null" portType="wpc:null" wpc:displayName="prepareReport" wpc:id="20">
+      <wpc:script>
+        <wpc:javaCode><![CDATA[DataObject shippingOrder = ShippingOrder.getDataObject("shippingOrder");
+StringBuffer sb = new StringBuffer(256);
+sb.append("Shipment report. Reference No.: ");
+sb.append(shippingOrder.getString("referenceNo"));
+sb.append(". Package to: ");
+sb.append(shippingOrder.getString("firstName"));
+sb.append(" ");
+sb.append(shippingOrder.getString("familyName"));
+sb.append(", ");
+sb.append(shippingOrder.getString("zipCode"));
+sb.append(", ");
+sb.append(shippingOrder.getString("city"));
+sb.append(", ");
+sb.append(shippingOrder.getString("street"));
+sb.append(" was delivered successfully.");
+
+//initialize the Output variable:
+BOFactory factory = (BOFactory)ServiceManager.INSTANCE.locateService("com/ibm/websphere/bo/BOFactory");
+ShippingReport = factory.createByType( getVariableType( "ShippingReport") );
+
+//Create and prepare DataObject
+DataObject shippingReport = factory.create("http://bpc/samples/shipping","ShippingReport");
+shippingReport.setString("referenceNo",shippingOrder.getString("referenceNo")); 
+shippingReport.setString("report",sb.toString()); 
+
+ShippingReport.setDataObject("report",shippingReport);]]></wpc:javaCode>
+      </wpc:script>
+      <bpws:targets>
+        <bpws:target linkName="Link6"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link7"/>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke inputVariable="ShippingReport" name="SendReport" operation="reportShipment" partnerLink="ShippingInformation" portType="ns2:ShippingInformation" wpc:displayName="sendReport" wpc:id="25">
+      <bpws:targets>
+        <bpws:target linkName="Link7"/>
+      </bpws:targets>
+    </bpws:invoke>
+  </bpws:flow>
+</bpws:process>

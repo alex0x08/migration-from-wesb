@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+"This sample program is provided AS IS and may be used, executed, copied and modified without royalty payment by customer (a) for its own instruction and study, (b) in order to develop applications designed to run with an IBM WebSphere product, either for customer's own internal use or for redistribution by customer, as part of such an application, in customer's own products."
+
+Product 5655-FLW,  (C) COPYRIGHT International Business Machines Corp., 2005
+All Rights Reserved * Licensed Materials - Property of IBM
+-->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns="http://bpc/samples/order/Order" xmlns:ns0="http://bpc/samples/shipping/ShippingInformation" xmlns:ns1="http://bpc/samples/shipping/Shipping" xmlns:ns2="http://bpc/samples/charging/Charging" xmlns:ns3="http://bpc/samples/order/CustomerVerificationService" xmlns:ns4="http://bpc/samples/order/StockManagerService" xmlns:plnk="http://schemas.xmlsoap.org/ws/2004/03/partner-link/" xmlns:tns="http://bpc/samples/order/OrderProcessArtifacts" xmlns:wsdl0="http://bpc/samples/order/OrderProcessInterface" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="OrderProcess" targetNamespace="http://bpc/samples/order/OrderProcessArtifacts">
+  <plnk:partnerLinkType name="OrderProcessPartnerLinkType">
+    <plnk:role name="ProcessRole">
+      <plnk:portType name="ns:Order"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="PartnerPLT">
+    <plnk:role name="myRole">
+      <plnk:portType name="ns0:ShippingInformation"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="PartnerPLT1">
+    <plnk:role name="partnerRole">
+      <plnk:portType name="ns1:Shipping"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="PartnerPLT2">
+    <plnk:role name="partnerRole">
+      <plnk:portType name="ns2:Charging"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="PartnerPLT3">
+    <plnk:role name="partnerRole">
+      <plnk:portType name="ns3:CustomerVerificationService"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="PartnerPLT4">
+    <plnk:role name="partnerRole">
+      <plnk:portType name="ns4:StockManagerService"/>com.Ox08.experiments.migrated.esb
+    </plnk:role>
+  </plnk:partnerLinkType>
+    <bpws:property name="orderNo" type="xsd:string"/>
+    <bpws:propertyAlias messageType="ns:enterPersonalDataRequestMsg" part="enterPersonalDataParameters" propertyName="tns:orderNo">
+    <bpws:query><![CDATA[/personalData/orderNo]]></bpws:query>
+  </bpws:propertyAlias>
+    <bpws:property name="nnn" type="xsd:string"/>
+    <bpws:propertyAlias messageType="ns:enterProductDataRequestMsg" part="enterProductDataParameters" propertyName="tns:orderNo">
+    <bpws:query><![CDATA[/productData/orderNo]]></bpws:query>
+  </bpws:propertyAlias>
+    <bpws:propertyAlias messageType="ns0:acknowledgeShipmentRequestMsg" part="acknowledgeShipmentParameters" propertyName="tns:orderNo">
+    <bpws:query><![CDATA[/acknowledgement/referenceNo]]></bpws:query>
+  </bpws:propertyAlias>
+    <bpws:propertyAlias messageType="ns0:reportShipmentRequestMsg" part="reportShipmentParameters" propertyName="tns:orderNo">
+    <bpws:query><![CDATA[/report/referenceNo]]></bpws:query>
+  </bpws:propertyAlias>
+    <import location="Order.wsdl" namespace="http://bpc/samples/order/Order"/>
+    <import location="../shipping/ShippingInformation.wsdl" namespace="http://bpc/samples/shipping/ShippingInformation"/>
+    <import location="../shipping/Shipping.wsdl" namespace="http://bpc/samples/shipping/Shipping"/>
+    <import location="../charging/Charging.wsdl" namespace="http://bpc/samples/charging/Charging"/>
+    <import location="CustomerVerificationService.wsdl" namespace="http://bpc/samples/order/CustomerVerificationService"/>
+    <import location="StockManagerService.wsdl" namespace="http://bpc/samples/order/StockManagerService"/>
+</definitions>

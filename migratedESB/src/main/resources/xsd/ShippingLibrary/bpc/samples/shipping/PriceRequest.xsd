@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:bo="http://bpc/samples/shipping" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://bpc/samples/shipping">
+  <xsd:complexType name="PriceRequest">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="referenceNo" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="size" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="kind" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="number" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+"This sample program is provided AS IS and may be used, executed, copied and modified without royalty payment by customer (a) for its own instruction and study, (b) in order to develop applications designed to run with an IBM WebSphere product, either for customer's own internal use or for redistribution by customer, as part of such an application, in customer's own products."
+
+Product 5655-FLW,  (C) COPYRIGHT International Business Machines Corp., 2005
+All Rights Reserved * Licensed Materials - Property of IBM
+-->
+<wsdl:definitions xmlns:bons1="http://bpc/samples/charging" xmlns:tns="http://bpc/samples/charging/Charging"
+                  xmlns:wsdl="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Charging" targetNamespace="http://bpc/samples/charging/Charging">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://bpc/samples/charging/Charging" xmlns:bons1="http://bpc/samples/charging"
+                xmlns:tns="http://bpc/samples/charging/Charging" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://bpc/samples/charging" schemaLocation="../../../xsd-includes/http.bpc.samples.charging.xsd"/>
+      <xsd:element name="charge">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="chargingRequest" nillable="true" type="bons1:ChargingRequest"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="chargeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="chargingResponse" nillable="true" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+    <wsdl:message name="chargeRequestMsg">
+    <wsdl:part element="tns:charge" name="chargeParameters"/>
+  </wsdl:message>
+    <wsdl:message name="chargeResponseMsg">
+    <wsdl:part element="tns:chargeResponse" name="chargeResult"/>
+  </wsdl:message>
+    <wsdl:portType name="Charging">
+    <wsdl:operation name="charge">
+      <wsdl:input message="tns:chargeRequestMsg" name="chargeRequest"/>
+      <wsdl:output message="tns:chargeResponseMsg" name="chargeResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

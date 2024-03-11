@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scdl:component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://bpc/samples/order/Order" xmlns:ns2="http://bpc/samples/shipping/ShippingInformation" xmlns:ns3="http://bpc/samples/shipping/Shipping" xmlns:ns4="http://bpc/samples/charging/Charging" xmlns:ns5="http://bpc/samples/order/CustomerVerificationService" xmlns:ns6="http://bpc/samples/order/StockManagerService" xmlns:process="http://www.ibm.com/xmlns/prod/websphere/scdl/business-process/6.0.0" xmlns:scdl="http://www.ibm.com/xmlns/prod/websphere/scdl/6.0.0" xmlns:wsdl="http://www.ibm.com/xmlns/prod/websphere/scdl/wsdl/6.0.0" displayName="OrderProcess" name="OrderProcess">
+  <interfaces>
+    <interface xsi:type="wsdl:WSDLPortType" preferredInteractionStyle="async" portType="ns1:Order">
+      <scdl:interfaceQualifier xsi:type="scdl:JoinTransaction" value="false"/>
+    </interface>
+    <interface xsi:type="wsdl:WSDLPortType" preferredInteractionStyle="async" portType="ns2:ShippingInformation">
+      <scdl:interfaceQualifier xsi:type="scdl:JoinTransaction" value="false"/>
+    </interface>
+  </interfaces>
+  <references>
+    <reference name="ShippingService">
+      <interface xsi:type="wsdl:WSDLPortType" portType="ns3:Shipping"/>
+      <scdl:referenceQualifier xsi:type="scdl:DeliverAsyncAt" value="commit"/>
+      <wire target="ShippingProcess"/>
+    </reference>
+    <reference name="ChargingService">
+      <interface xsi:type="wsdl:WSDLPortType" portType="ns4:Charging"/>
+      <scdl:referenceQualifier xsi:type="scdl:DeliverAsyncAt" value="commit"/>
+      <wire target="ChargingProcess"/>
+    </reference>
+    <reference name="CustomerVerificationService">
+      <interface xsi:type="wsdl:WSDLPortType" portType="ns5:CustomerVerificationService"/>
+      <scdl:referenceQualifier xsi:type="scdl:DeliverAsyncAt" value="commit"/>
+      <wire target="Component1"/>
+    </reference>
+    <reference name="StockManagerService">
+      <interface xsi:type="wsdl:WSDLPortType" portType="ns6:StockManagerService"/>
+      <scdl:referenceQualifier xsi:type="scdl:DeliverAsyncAt" value="commit"/>
+      <wire target="StockManagerService"/>
+    </reference>
+  </references>
+  <implementation xsi:type="process:ProcessImplementation">
+    <scdl:implementationQualifier xsi:type="scdl:Transaction" value="global"/>
+    <process bpel="/bpc/samples/order/OrderProcess.bpel"/>
+  </implementation>
+</scdl:component>

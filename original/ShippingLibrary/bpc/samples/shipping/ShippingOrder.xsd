@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:bo="http://bpc/samples/shipping" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://bpc/samples/shipping">
+  <xsd:complexType name="ShippingOrder">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="referenceNo" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="familyName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="firstName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="zipCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="city" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="street" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

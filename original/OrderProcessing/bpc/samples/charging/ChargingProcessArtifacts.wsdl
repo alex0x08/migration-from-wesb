@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+"This sample program is provided AS IS and may be used, executed, copied and modified without royalty payment by customer (a) for its own instruction and study, (b) in order to develop applications designed to run with an IBM WebSphere product, either for customer's own internal use or for redistribution by customer, as part of such an application, in customer's own products."
+
+Product 5655-FLW,  (C) COPYRIGHT International Business Machines Corp., 2005
+All Rights Reserved * Licensed Materials - Property of IBM
+-->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://bpc/samples/order/Order" xmlns:ns0="http://bpc/samples/order/CustomerVerificationService" xmlns:ns1="http://bpc/samples/charging/Charging" xmlns:plnk="http://schemas.xmlsoap.org/ws/2004/03/partner-link/" xmlns:tns="http://bpc/samples/charging/ChargingProcessArtifacts" xmlns:wsdl0="http://bpc/samples/charging/ChargingService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ChargingProcess" targetNamespace="http://bpc/samples/charging/ChargingProcessArtifacts">
+  <plnk:partnerLinkType name="ChargingProcessPartnerLinkType">
+    <plnk:role name="ProcessRole">
+      <plnk:portType name="ns1:Charging"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+    <import location="../../../../ChargingLibrary/bpc/samples/charging/Charging.wsdl" namespace="http://bpc/samples/charging/Charging"/>
+</definitions>

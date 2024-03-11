@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+"This sample program is provided AS IS and may be used, executed, copied and modified without royalty payment by customer (a) for its own instruction and study, (b) in order to develop applications designed to run with an IBM WebSphere product, either for customer's own internal use or for redistribution by customer, as part of such an application, in customer's own products."
+
+Product 5655-FLW,  (C) COPYRIGHT International Business Machines Corp., 2005
+All Rights Reserved * Licensed Materials - Property of IBM
+-->
+<bpws:process xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns="http://bpc/samples/charging/ChargingProcessArtifacts" xmlns:ns0="http://bpc/samples/charging" xmlns:ns1="http://bpc/samples/charging/ChargingService" xmlns:ns2="http://bpc/samples/charging/Charging" xmlns:wpc="http://www.ibm.com/xmlns/prod/websphere/business-process/6.0.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.ibm.com/xmlns/prod/websphere/business-process/expression-lang/java/6.0.0/" name="ChargingProcess" suppressJoinFailure="yes" targetNamespace="http://bpc/samples/charging" wpc:autonomy="child" wpc:displayName="ChargingProcess" wpc:id="1">
+  <wpc:javaGlobals>
+    <wpc:import packages="commonj.sdo.DataObject"/>
+  </wpc:javaGlobals>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../ChargingServiceLibrary/bpc/samples/charging/ChargingService.wsdl" namespace="http://bpc/samples/charging/ChargingService"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../ChargingServiceLibrary/bpc/samples/charging/ChargingRequest.xsd" namespace="http://bpc/samples/charging"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="ChargingProcessArtifacts.wsdl" namespace="http://bpc/samples/charging/ChargingProcessArtifacts"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../ChargingLibrary/ChargingService.wsdl" namespace="http://bpc/samples/charging/ChargingService"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../ChargingLibrary/ChargingRequest.xsd" namespace="http://bpc/samples/charging"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../ChargingLibrary/bpc/samples/charging/ChargingRequest.xsd" namespace="http://bpc/samples/charging"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../ChargingLibrary/bpc/samples/charging/Charging.wsdl" namespace="http://bpc/samples/charging/Charging"/>
+  <bpws:partnerLinks>
+    <bpws:partnerLink myRole="ProcessRole" name="Client" partnerLinkType="ns:ChargingProcessPartnerLinkType"/>
+  </bpws:partnerLinks>
+  <bpws:variables>
+    <bpws:variable name="ChargingRequest" type="ns0:ChargingRequest" wpc:id="5"/>
+    <bpws:variable name="ChargingResponse" type="xsd:string" wpc:id="6"/>
+  </bpws:variables>
+  <bpws:sequence name="HiddenSequence" wpc:id="1073741826">
+    <bpws:receive createInstance="yes" name="Receive" operation="charge" partnerLink="Client" portType="ns2:Charging" wpc:displayName="Receive" wpc:id="3">
+      <wpc:output>
+        <wpc:parameter name="chargingRequest" variable="ChargingRequest"/>
+      </wpc:output>
+    </bpws:receive>
+    <bpws:invoke name="Snippet" operation="null" partnerLink="null" portType="wpc:null" wpc:displayName="Snippet" wpc:id="8">
+      <wpc:script>
+        <wpc:javaCode><![CDATA[DataObject creditCardInformation = ChargingRequest.getDataObject("creditCardInformation");
+String customer = ChargingRequest.getString("customer");
+double amount = ChargingRequest.getDouble("amount");
+String cardNumber = creditCardInformation.getString("cardNumber");
+String cardCompany = creditCardInformation.getString("cardCompany");
+System.out.println("Charging " + amount + " from Customer " + customer + ". CardNumber: " + cardNumber);
+ChargingResponse = "ok";]]></wpc:javaCode>
+      </wpc:script>
+    </bpws:invoke>
+    <bpws:reply name="Reply" operation="charge" partnerLink="Client" portType="ns2:Charging" wpc:displayName="Reply" wpc:id="4">
+      <wpc:input>
+        <wpc:parameter name="chargingResponse" variable="ChargingResponse"/>
+      </wpc:input>
+    </bpws:reply>
+  </bpws:sequence>
+</bpws:process>

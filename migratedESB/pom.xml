@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.Ox08.experiments</groupId>
+	<artifactId>migratedESB</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>migratedESB</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>17</java.version>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
+
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jvnet.jaxb</groupId>
+				<artifactId>jaxb-maven-plugin</artifactId>
+				<version>4.0.3</version>
+				<executions>
+					<execution>
+						<id>charging</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<generateDirectory>target/generated-sources/charging/</generateDirectory>
+							<schemaDirectory>${basedir}/src/main/resources/xsd/ChargingLibrary/bpc/samples/charging</schemaDirectory>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>order</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<generateDirectory>target/generated-sources/order/</generateDirectory>
+							<schemaDirectory>${basedir}/src/main/resources/xsd/OrderLibrary/bpc/samples/order</schemaDirectory>
+						</configuration>
+					</execution>
+
+
+					<execution>
+						<id>shipping</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<generateDirectory>target/generated-sources/shipping/</generateDirectory>
+							<schemaDirectory>${basedir}/src/main/resources/xsd/ShippingLibrary/bpc/samples/shipping</schemaDirectory>
+						</configuration>
+					</execution>
+
+
+				</executions>
+
+				<configuration>
+					<extension>true</extension>
+					<args>
+						<arg>-wsdl</arg>
+					</args>
+					<plugins>
+						<plugin>
+							<groupId>org.jvnet.jaxb</groupId>
+							<artifactId>jaxb-plugins</artifactId>
+							<version>4.0.3</version> <!-- same as maven-plugin version -->
+						</plugin>
+					</plugins>
+						<schemaIncludes>
+						<include>*.wsdl</include>
+					</schemaIncludes>
+				</configuration>
+
+
+
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

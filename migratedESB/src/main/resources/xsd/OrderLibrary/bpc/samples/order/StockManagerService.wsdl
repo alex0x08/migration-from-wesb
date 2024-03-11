@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+"This sample program is provided AS IS and may be used, executed, copied and modified without royalty payment by customer (a) for its own instruction and study, (b) in order to develop applications designed to run with an IBM WebSphere product, either for customer's own internal use or for redistribution by customer, as part of such an application, in customer's own products."
+
+Product 5655-FLW,  (C) COPYRIGHT International Business Machines Corp., 2005
+All Rights Reserved * Licensed Materials - Property of IBM
+-->
+<wsdl:definitions xmlns:bons1="http://bpc/samples/order" xmlns:tns="http://bpc/samples/order/StockManagerService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="StockManagerService" targetNamespace="http://bpc/samples/order/StockManagerService">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://bpc/samples/order/StockManagerService" xmlns:bons1="http://bpc/samples/order" xmlns:tns="http://bpc/samples/order/StockManagerService" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://bpc/samples/order" schemaLocation="../../../xsd-includes/http.bpc.samples.order.xsd"/>
+      <xsd:element name="checkAvailability">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="productData" nillable="true" type="bons1:ProductData"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="checkAvailabilityResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="isProductAvailable" nillable="true" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+    <wsdl:message name="checkAvailabilityRequestMsg">
+    <wsdl:part element="tns:checkAvailability" name="checkAvailabilityParameters"/>
+  </wsdl:message>
+    <wsdl:message name="checkAvailabilityResponseMsg">
+    <wsdl:part element="tns:checkAvailabilityResponse" name="checkAvailabilityResult"/>
+  </wsdl:message>
+    <wsdl:portType name="StockManagerService">
+    <wsdl:operation name="checkAvailability">
+      <wsdl:input message="tns:checkAvailabilityRequestMsg" name="checkAvailabilityRequest"/>
+      <wsdl:output message="tns:checkAvailabilityResponseMsg" name="checkAvailabilityResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

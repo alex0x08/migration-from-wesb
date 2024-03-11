@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:bo="http://bpc/samples/charging" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://bpc/samples/charging">
+  <xsd:complexType name="CreditCardInformation">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="cardNumber" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="cardCompany" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

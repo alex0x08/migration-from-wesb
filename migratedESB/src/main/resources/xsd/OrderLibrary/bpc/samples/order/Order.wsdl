@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+"This sample program is provided AS IS and may be used, executed, copied and modified without royalty payment by customer (a) for its own instruction and study, (b) in order to develop applications designed to run with an IBM WebSphere product, either for customer's own internal use or for redistribution by customer, as part of such an application, in customer's own products."
+
+Product 5655-FLW,  (C) COPYRIGHT International Business Machines Corp., 2005
+All Rights Reserved * Licensed Materials - Property of IBM
+-->
+<wsdl:definitions xmlns:bons1="http://bpc/samples/order" xmlns:tns="http://bpc/samples/order/Order" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Order" targetNamespace="http://bpc/samples/order/Order">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://bpc/samples/order/Order" xmlns:bons1="http://bpc/samples/order" xmlns:tns="http://bpc/samples/order/Order" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://bpc/samples/order" schemaLocation="../../../xsd-includes/http.bpc.samples.order.xsd"/>
+      <xsd:element name="enterPersonalData">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="personalData" nillable="true" type="bons1:PersonalData"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="enterProductData">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="productData" nillable="true" type="bons1:ProductData"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+    <wsdl:message name="enterPersonalDataRequestMsg">
+    <wsdl:part element="tns:enterPersonalData" name="enterPersonalDataParameters"/>
+  </wsdl:message>
+    <wsdl:message name="enterProductDataRequestMsg">
+    <wsdl:part element="tns:enterProductData" name="enterProductDataParameters"/>
+  </wsdl:message>
+    <wsdl:portType name="Order">
+    <wsdl:operation name="enterPersonalData">
+      <wsdl:input message="tns:enterPersonalDataRequestMsg" name="enterPersonalDataRequest"/>
+    </wsdl:operation>
+    <wsdl:operation name="enterProductData">
+      <wsdl:input message="tns:enterProductDataRequestMsg" name="enterProductDataRequest"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

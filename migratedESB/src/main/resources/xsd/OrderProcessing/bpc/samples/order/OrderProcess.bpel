@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+"This sample program is provided AS IS and may be used, executed, copied and modified without royalty payment by customer (a) for its own instruction and study, (b) in order to develop applications designed to run with an IBM WebSphere product, either for customer's own internal use or for redistribution by customer, as part of such an application, in customer's own products."
+
+Product 5655-FLW,  (C) COPYRIGHT International Business Machines Corp., 2005
+All Rights Reserved * Licensed Materials - Property of IBM
+-->
+<bpws:process xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns="http://bpc/samples/order/OrderProcessArtifacts" xmlns:ns0="http://bpc/samples/order/OrderProcessInterface" xmlns:ns1="http://bpc/samples/order" xmlns:ns2="http://bpc/samples/shipping" xmlns:ns3="http://bpc/samples/charging" xmlns:ns4="http://bpc/samples/order/Order" xmlns:ns5="http://bpc/samples/order/CustomerVerificationService" xmlns:ns6="http://bpc/samples/order/StockManagerService" xmlns:ns7="http://bpc/samples/shipping/Shipping" xmlns:ns8="http://bpc/samples/charging/Charging" xmlns:ns9="http://bpc/samples/shipping/ShippingInformation" xmlns:wpc="http://www.ibm.com/xmlns/prod/websphere/business-process/6.0.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.ibm.com/xmlns/prod/websphere/business-process/expression-lang/java/6.0.0/" name="OrderProcess" suppressJoinFailure="yes" targetNamespace="http://bpc/samples/order" wpc:autonomy="peer" wpc:displayName="OrderProcess" wpc:id="1">
+  <wpc:javaGlobals>
+    <wpc:import packages="com.ibm.websphere.bo.BOFactory"/>
+    <wpc:import packages="com.ibm.websphere.sca.ServiceManager"/>
+  </wpc:javaGlobals>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="OrderProcessArtifacts.wsdl" namespace="http://bpc/samples/order/OrderProcessArtifacts"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="OrderProcess.wsdl" namespace="http://bpc/samples/order/OrderProcessInterface"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../ShippingLibrary/bpc/samples/shipping/ShippingReport.xsd" namespace="http://bpc/samples/shipping"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../OrderLibrary/bpc/samples/order/PersonalData.xsd" namespace="http://bpc/samples/order"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../OrderLibrary/bpc/samples/order/CheckCustomerResponse.xsd" namespace="http://bpc/samples/order"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../ShippingLibrary/bpc/samples/shipping/ShippingAcknowledgement.xsd" namespace="http://bpc/samples/shipping"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../OrderLibrary/bpc/samples/order/ProductData.xsd" namespace="http://bpc/samples/order"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../ChargingLibrary/bpc/samples/charging/ChargingRequest.xsd" namespace="http://bpc/samples/charging"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../ShippingLibrary/bpc/samples/shipping/PriceRequest.xsd" namespace="http://bpc/samples/shipping"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../OrderLibrary/bpc/samples/order/Order.wsdl" namespace="http://bpc/samples/order/Order"/>
+  <bpws:import importType="http://www.w3.org/2001/XMLSchema" location="../../../../ShippingLibrary/bpc/samples/shipping/ShippingOrder.xsd" namespace="http://bpc/samples/shipping"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../ShippingLibrary/bpc/samples/shipping/ShippingInformation.wsdl" namespace="http://bpc/samples/shipping/ShippingInformation"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../ShippingLibrary/bpc/samples/shipping/Shipping.wsdl" namespace="http://bpc/samples/shipping/Shipping"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../OrderLibrary/bpc/samples/order/CustomerVerificationService.wsdl" namespace="http://bpc/samples/order/CustomerVerificationService"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../ChargingLibrary/bpc/samples/charging/Charging.wsdl" namespace="http://bpc/samples/charging/Charging"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../OrderLibrary/bpc/samples/order/StockManagerService.wsdl" namespace="http://bpc/samples/order/StockManagerService"/>
+  <bpws:partnerLinks>
+    <bpws:partnerLink myRole="ProcessRole" name="Client" partnerLinkType="ns:OrderProcessPartnerLinkType"/>
+    <bpws:partnerLink myRole="myRole" name="ShippingInformation" partnerLinkType="ns:PartnerPLT"/>
+    <bpws:partnerLink name="ShippingService" partnerLinkType="ns:PartnerPLT1" partnerRole="partnerRole"/>
+    <bpws:partnerLink name="ChargingService" partnerLinkType="ns:PartnerPLT2" partnerRole="partnerRole"/>
+    <bpws:partnerLink name="CustomerVerificationService" partnerLinkType="ns:PartnerPLT3" partnerRole="partnerRole"/>
+    <bpws:partnerLink name="StockManagerService" partnerLinkType="ns:PartnerPLT4" partnerRole="partnerRole"/>
+  </bpws:partnerLinks>
+  <bpws:variables>
+    <bpws:variable name="PersonalData" type="ns1:PersonalData" wpc:id="2"/>
+    <bpws:variable name="ProductData" type="ns1:ProductData" wpc:id="3"/>
+    <bpws:variable name="ShippingAcknowledgement" type="ns2:ShippingAcknowledgement" wpc:id="4"/>
+    <bpws:variable name="ShippingReport" type="ns2:ShippingReport" wpc:id="5"/>
+    <bpws:variable name="CheckCustomerResponse" type="ns1:CheckCustomerResponse" wpc:id="6"/>
+    <bpws:variable name="IsProductAvailable" type="xsd:boolean" wpc:id="7"/>
+    <bpws:variable name="PriceRequest" type="ns2:PriceRequest" wpc:id="8"/>
+    <bpws:variable name="ShippingPrice" type="xsd:double" wpc:id="9"/>
+    <bpws:variable name="TotalAmount" type="xsd:double" wpc:id="10"/>
+    <bpws:variable name="ChargingRequest" type="ns3:ChargingRequest" wpc:id="11"/>
+    <bpws:variable name="ChargingResponse" type="xsd:string" wpc:id="12"/>
+    <bpws:variable name="ShippingOrder" type="ns2:ShippingOrder" wpc:id="13"/>
+  </bpws:variables>
+  <bpws:correlationSets>
+    <bpws:correlationSet name="OrderNo" properties="ns:orderNo"/>
+  </bpws:correlationSets>
+  <bpws:flow name="ParallelActivities" wpc:displayName="ParallelActivities" wpc:id="14">
+    <bpws:links>
+      <bpws:link name="Link1" wpc:id="32"/>
+      <bpws:link name="Link2" wpc:id="33"/>
+      <bpws:link name="Link3" wpc:id="34"/>
+      <bpws:link name="Link4" wpc:id="35"/>
+      <bpws:link name="Link5" wpc:id="36"/>
+      <bpws:link name="Link6" wpc:id="37"/>
+      <bpws:link name="Link7" wpc:id="38"/>
+      <bpws:link name="Link8" wpc:id="39"/>
+      <bpws:link name="Link9" wpc:id="40"/>
+      <bpws:link name="Link10" wpc:id="41"/>
+      <bpws:link name="Link11" wpc:id="42"/>
+      <bpws:link name="Link12" wpc:id="43"/>
+      <bpws:link name="Link13" wpc:id="44"/>
+      <bpws:link name="Link14" wpc:id="45"/>
+      <bpws:link name="Link15" wpc:id="46"/>
+      <bpws:link name="Link16" wpc:id="47"/>
+    </bpws:links>
+    <bpws:receive createInstance="yes" name="GetPersonalData" operation="enterPersonalData" partnerLink="Client" portType="ns4:Order" wpc:displayName="GetPersonalData" wpc:id="15">
+      <wpc:output>
+        <wpc:parameter name="personalData" variable="PersonalData"/>
+      </wpc:output>
+      <bpws:sources>
+        <bpws:source linkName="Link1"/>
+      </bpws:sources>
+      <bpws:correlations>
+        <bpws:correlation initiate="join" set="OrderNo"/>
+      </bpws:correlations>
+    </bpws:receive>
+    <bpws:receive createInstance="yes" name="GetProductData" operation="enterProductData" partnerLink="Client" portType="ns4:Order" wpc:displayName="GetProductData" wpc:id="16">
+      <wpc:output>
+        <wpc:parameter name="productData" variable="ProductData"/>
+      </wpc:output>
+      <bpws:sources>
+        <bpws:source linkName="Link2"/>
+      </bpws:sources>
+      <bpws:correlations>
+        <bpws:correlation initiate="join" set="OrderNo"/>
+      </bpws:correlations>
+    </bpws:receive>
+    <bpws:invoke name="CheckCustomer" operation="checkCustomer" partnerLink="CustomerVerificationService" portType="ns5:CustomerVerificationService" wpc:displayName="CheckCustomer" wpc:id="17">
+      <wpc:input>
+        <wpc:parameter name="personalData" variable="PersonalData"/>
+      </wpc:input>
+      <wpc:output>
+        <wpc:parameter name="checkCustomerResponse" variable="CheckCustomerResponse"/>
+      </wpc:output>
+      <bpws:targets>
+        <bpws:target linkName="Link1"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link3">
+          <bpws:transitionCondition><![CDATA[return CheckCustomerResponse.getBoolean("isCustomerOk");]]></bpws:transitionCondition>
+        </bpws:source>
+        <bpws:source linkName="Link4">
+          <bpws:transitionCondition expressionLanguage="http://www.ibm.com/xmlns/prod/websphere/business-process/expression-lang/built-in/6.0.0/">
+            <wpc:otherwise/>
+          </bpws:transitionCondition>
+        </bpws:source>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke name="CheckProductAvailability" operation="checkAvailability" partnerLink="StockManagerService" portType="ns6:StockManagerService" wpc:displayName="CheckProductAvailability" wpc:id="18">
+      <wpc:input>
+        <wpc:parameter name="productData" variable="ProductData"/>
+      </wpc:input>
+      <wpc:output>
+        <wpc:parameter name="isProductAvailable" variable="IsProductAvailable"/>
+      </wpc:output>
+      <bpws:targets>
+        <bpws:target linkName="Link2"/>
+        <bpws:target linkName="Link3"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link5">
+          <bpws:transitionCondition expressionLanguage="http://www.ibm.com/xmlns/prod/websphere/business-process/expression-lang/built-in/6.0.0/">
+            <wpc:otherwise/>
+          </bpws:transitionCondition>
+        </bpws:source>
+        <bpws:source linkName="Link6">
+          <bpws:transitionCondition><![CDATA[return IsProductAvailable.booleanValue();
+]]></bpws:transitionCondition>
+        </bpws:source>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke name="GetShippingPrice" operation="calculatePrice" partnerLink="ShippingService" portType="ns7:Shipping" wpc:displayName="GetShippingPrice" wpc:id="19">
+      <wpc:input>
+        <wpc:parameter name="priceRequest" variable="PriceRequest"/>
+      </wpc:input>
+      <wpc:output>
+        <wpc:parameter name="price" variable="ShippingPrice"/>
+      </wpc:output>
+      <bpws:targets>
+        <bpws:target linkName="Link7"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link8"/>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke name="RequestCharging" operation="charge" partnerLink="ChargingService" portType="ns8:Charging" wpc:displayName="RequestCharging" wpc:id="20">
+      <wpc:input>
+        <wpc:parameter name="chargingRequest" variable="ChargingRequest"/>
+      </wpc:input>
+      <wpc:output>
+        <wpc:parameter name="chargingResponse" variable="ChargingResponse"/>
+      </wpc:output>
+      <bpws:targets>
+        <bpws:target linkName="Link16"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link15"/>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke name="OrderShipping" operation="ship" partnerLink="ShippingService" portType="ns7:Shipping" wpc:displayName="OrderShipping" wpc:id="21">
+      <wpc:input>
+        <wpc:parameter name="shippingOrder" variable="ShippingOrder"/>
+      </wpc:input>
+      <bpws:targets>
+        <bpws:target linkName="Link11"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link12"/>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke name="PreparePriceRequest" operation="null" partnerLink="null" portType="wpc:null" wpc:displayName="PreparePriceRequest" wpc:id="23">
+      <wpc:script>
+        <wpc:javaCode><![CDATA[int number = ProductData.getInt("number");
+String size = "S";
+if(number > 16) size = "XXL";
+else if (number > 8) size = "XL";
+else if (number > 4) size = "L";
+else if (number > 2) size = "M";
+if(PriceRequest == null)
+{
+BOFactory factory = 
+(BOFactory)ServiceManager.INSTANCE.locateService("com/ibm/websphere/bo/BOFactory");
+PriceRequest = factory.createByType( getVariableType( "PriceRequest") );
+}
+PriceRequest.setString("referenceNo",ProductData.getString("orderNo"));
+PriceRequest.setString("kind",ProductData.getString("kind"));
+PriceRequest.setString("size",size);
+PriceRequest.setInt("number",number);
+System.out.println("PreparePriceRequest. EXIT");
+]]></wpc:javaCode>
+      </wpc:script>
+      <bpws:targets>
+        <bpws:target linkName="Link6"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link7"/>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke name="CalculateTotalAmount" operation="null" partnerLink="null" portType="wpc:null" wpc:displayName="CalculateTotalAmount" wpc:id="25">
+      <wpc:script>
+        <wpc:javaCode><![CDATA[String kind = ProductData.getString("kind");
+int number = ProductData.getInt("number");
+double price = 25.0;
+if("mercedes".equals(kind)) price = 35000.0;
+else if("porsche".equals(kind)) price = 55000.0;
+TotalAmount = new Double(ShippingPrice.doubleValue() + price * number);
+System.out.println("CalculateTotalAmount: " + TotalAmount);]]></wpc:javaCode>
+      </wpc:script>
+      <bpws:targets>
+        <bpws:target linkName="Link8"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link9"/>
+        <bpws:source linkName="Link10"/>
+      </bpws:sources>
+    </bpws:invoke>
+    <bpws:invoke name="FileOrder" operation="null" partnerLink="null" portType="wpc:null" wpc:displayName="FileOrder" wpc:id="27">
+      <wpc:script>
+        <wpc:javaCode><![CDATA[StringBuffer sb = new StringBuffer(256);
+sb.append("Order no.: ");
+sb.append(PersonalData.getString("orderNo"));
+sb.append("."); if(!CheckCustomerResponse.getBoolean("isCustomerOk"))
+{
+sb.append(" Customer check failed.");
+}
+if(!IsProductAvailable.booleanValue())
+{
+sb.append("Availability check failed.");
+}
+if(ChargingResponse != null)
+{
+sb.append("Charging response: ");
+sb.append(ChargingResponse);
+sb.append(".");
+}
+if(ShippingAcknowledgement != null)
+{
+sb.append("Shipping acknowledgement: ");
+sb.append(ShippingAcknowledgement.getString("message"));
+sb.append(".");
+}
+if(ShippingReport != null)
+{
+sb.append("Shipping report: ");
+sb.append(ShippingReport.getString("report"));
+sb.append(".");
+}
+System.out.println(sb.toString());]]></wpc:javaCode>
+      </wpc:script>
+      <bpws:targets>
+        <bpws:target linkName="Link4"/>
+        <bpws:target linkName="Link5"/>
+        <bpws:target linkName="Link14"/>
+        <bpws:target linkName="Link15"/>
+      </bpws:targets>
+    </bpws:invoke>
+    <bpws:assign name="PrepareCharging" wpc:displayName="PrepareCharging" wpc:id="28">
+      <bpws:targets>
+        <bpws:target linkName="Link10"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link16"/>
+      </bpws:sources>
+      <bpws:copy>
+        <bpws:from variable="PersonalData">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/familyName]]></bpws:query>
+        </bpws:from>
+        <bpws:to variable="ChargingRequest">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/customer]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+      <bpws:copy>
+        <bpws:from variable="TotalAmount"/>
+        <bpws:to variable="ChargingRequest">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/amount]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+      <bpws:copy>
+        <bpws:from variable="CheckCustomerResponse">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/creditCardNumber]]></bpws:query>
+        </bpws:from>
+        <bpws:to variable="ChargingRequest">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/creditCardInformation/cardNumber]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+      <bpws:copy>
+        <bpws:from variable="CheckCustomerResponse">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/creditCardCompany]]></bpws:query>
+        </bpws:from>
+        <bpws:to variable="ChargingRequest">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/creditCardInformation/cardCompany]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+    </bpws:assign>
+    <bpws:assign name="PrepareShippingOrder" wpc:displayName="PrepareShippingOrder" wpc:id="29">
+      <bpws:targets>
+        <bpws:target linkName="Link9"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link11"/>
+      </bpws:sources>
+      <bpws:copy>
+        <bpws:from variable="PersonalData">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/orderNo]]></bpws:query>
+        </bpws:from>
+        <bpws:to variable="ShippingOrder">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/referenceNo]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+      <bpws:copy>
+        <bpws:from variable="PersonalData">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/familyName]]></bpws:query>
+        </bpws:from>
+        <bpws:to variable="ShippingOrder">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/familyName]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+      <bpws:copy>
+        <bpws:from variable="PersonalData">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/firstName]]></bpws:query>
+        </bpws:from>
+        <bpws:to variable="ShippingOrder">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/firstName]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+      <bpws:copy>
+        <bpws:from variable="ProductData">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/zipcode]]></bpws:query>
+        </bpws:from>
+        <bpws:to variable="ShippingOrder">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/zipCode]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+      <bpws:copy>
+        <bpws:from variable="ProductData">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/city]]></bpws:query>
+        </bpws:from>
+        <bpws:to variable="ShippingOrder">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/city]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+      <bpws:copy>
+        <bpws:from variable="ProductData">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/street]]></bpws:query>
+        </bpws:from>
+        <bpws:to variable="ShippingOrder">
+          <bpws:query queryLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116"><![CDATA[/street]]></bpws:query>
+        </bpws:to>
+      </bpws:copy>
+    </bpws:assign>
+    <bpws:receive name="GetShippingAck" operation="acknowledgeShipment" partnerLink="ShippingInformation" portType="ns9:ShippingInformation" wpc:displayName="GetShippingAck" wpc:id="30">
+      <wpc:output>
+        <wpc:parameter name="acknowledgement" variable="ShippingAcknowledgement"/>
+      </wpc:output>
+      <bpws:targets>
+        <bpws:target linkName="Link12"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link13"/>
+      </bpws:sources>
+      <bpws:correlations>
+        <bpws:correlation initiate="no" set="OrderNo"/>
+      </bpws:correlations>
+    </bpws:receive>
+    <bpws:receive name="GetShippingReport" operation="reportShipment" partnerLink="ShippingInformation" portType="ns9:ShippingInformation" wpc:displayName="GetShippingReport" wpc:id="31">
+      <wpc:output>
+        <wpc:parameter name="report" variable="ShippingReport"/>
+      </wpc:output>
+      <bpws:targets>
+        <bpws:target linkName="Link13"/>
+      </bpws:targets>
+      <bpws:sources>
+        <bpws:source linkName="Link14"/>
+      </bpws:sources>
+      <bpws:correlations>
+        <bpws:correlation initiate="no" set="OrderNo"/>
+      </bpws:correlations>
+    </bpws:receive>
+  </bpws:flow>
+</bpws:process>

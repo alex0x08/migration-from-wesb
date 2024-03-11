@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:bo="http://bpc/samples/order" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://bpc/samples/order">
+  <xsd:complexType name="ProductData">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="orderNo" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="kind" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="size" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="number" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="street" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="zipcode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="city" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

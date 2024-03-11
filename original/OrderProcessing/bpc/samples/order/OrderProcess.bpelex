@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extensionmodel:ExtensionMap xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.ibm.wbit.bpel.ui.uiextensionmodel="http:///com/ibm/wbit/bpel/ui/uiextensionmodel.ecore" xmlns:extensionmodel="http:///extensionmodel.ecore" namespace="http://com.ibm.wbit.bpel.ui/">
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#/"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1125044775223"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.1"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.2"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.3"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.4"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.5"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.6"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.7"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.8"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.9"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.10"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@variables/@children.11"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" width="676" height="621"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="0" y="8" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.1"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="171" y="8" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.2"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="1" y="60" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.3"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="145" y="112" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.4"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="422" y="216" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.5"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="245" y="368" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.6"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="434" y="367" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.7/@eExtensibilityElements.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.7"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="409" y="168" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.8/@eExtensibilityElements.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.8"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="409" y="264" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.9/@eExtensibilityElements.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.9"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="23" y="573" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.10"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="246" y="325" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.10/@copy.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.11"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="409" y="326" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.11/@copy.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.12"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="429" y="414" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.13"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" x="418" y="465" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.1"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.2"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.3"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.4"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.5"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.6"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.7"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.8"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.9"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.10"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.11"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.12"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.13"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.14"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@links/@children.15"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.10/@copy.1"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.10/@copy.2"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.10/@copy.3"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.11/@copy.1"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.11/@copy.2"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.11/@copy.3"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.11/@copy.4"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="OrderProcess.bpel#//@activity/@activities.11/@copy.5"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:CopyExtension" fromType="1" toType="1"/>
+  </extensions>
+</extensionmodel:ExtensionMap>

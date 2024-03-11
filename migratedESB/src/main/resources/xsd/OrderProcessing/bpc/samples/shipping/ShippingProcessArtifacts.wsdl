@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+"This sample program is provided AS IS and may be used, executed, copied and modified without royalty payment by customer (a) for its own instruction and study, (b) in order to develop applications designed to run with an IBM WebSphere product, either for customer's own internal use or for redistribution by customer, as part of such an application, in customer's own products."
+
+Product 5655-FLW,  (C) COPYRIGHT International Business Machines Corp., 2005
+All Rights Reserved * Licensed Materials - Property of IBM
+-->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns="http://bpc/samples/shipping/ShippingInformation" xmlns:plnk="http://schemas.xmlsoap.org/ws/2004/03/partner-link/" xmlns:tns="http://bpc/samples/shipping/ShippingProcessArtifacts" xmlns:wsdl0="http://bpc/samples/shipping/Shipping" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ShippingProcess" targetNamespace="http://bpc/samples/shipping/ShippingProcessArtifacts">
+    <plnk:partnerLinkType name="PartnerPLT">
+    <plnk:role name="myRole">
+      <plnk:portType name="wsdl0:Shipping"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="PartnerPLT1">
+    <plnk:role name="partnerRole">
+      <plnk:portType name="ns:ShippingInformation"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+    <bpws:property name="reference" type="xsd:string"/>
+    <bpws:propertyAlias messageType="wsdl0:calculatePriceRequestMsg" part="calculatePriceParameters" propertyName="tns:reference">
+    <bpws:query><![CDATA[/priceRequest/referenceNo]]></bpws:query>
+  </bpws:propertyAlias>
+    <bpws:propertyAlias messageType="wsdl0:shipRequestMsg" part="shipParameters" propertyName="tns:reference">
+    <bpws:query><![CDATA[/shippingOrder/referenceNo]]></bpws:query>
+  </bpws:propertyAlias>
+    <import location="../../../../ShippingLibrary/bpc/samples/shipping/Shipping.wsdl" namespace="http://bpc/samples/shipping/Shipping"/>
+    <import location="../../../../ShippingLibrary/bpc/samples/shipping/ShippingInformation.wsdl" namespace="http://bpc/samples/shipping/ShippingInformation"/>
+</definitions>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extensionmodel:ExtensionMap xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.ibm.wbit.bpel.ui.uiextensionmodel="http:///com/ibm/wbit/bpel/ui/uiextensionmodel.ecore" xmlns:extensionmodel="http:///extensionmodel.ecore" namespace="http://com.ibm.wbit.bpel.ui/">
+  <extensions>
+    <extendedObject href="ChargingProcess.bpel#/"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1125044841469"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ChargingProcess.bpel#//@activity"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension" implicit="true"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ChargingProcess.bpel#//@variables/@children.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ChargingProcess.bpel#//@variables/@children.1"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:VariableExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ChargingProcess.bpel#//@activity/@activities.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ChargingProcess.bpel#//@activity/@activities.2"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ChargingProcess.bpel#//@activity/@activities.1/@eExtensibilityElements.0"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ChargingProcess.bpel#//@activity/@activities.1"/>
+    <extensionObject xsi:type="com.ibm.wbit.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+</extensionmodel:ExtensionMap>
